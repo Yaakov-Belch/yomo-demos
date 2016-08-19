@@ -1,0 +1,76 @@
+{
+  "name": "yomo-demos",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Examples using yomo.js",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Yaakov-Belch/yomo-examples.git"
+  },
+  "keywords": [
+    "React",
+    "Redux",
+    "Mobx",
+    "MQTT",
+    "reactive",
+    "client",
+    "server",
+    "fullstack"
+  ],
+  "author": "Yaakov Belch",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/Yaakov-Belch/yomo-demos/issues"
+  },
+  "homepage": "https://github.com/Yaakov-Belch/yomo-demos#readme",
+  "scripts": {
+    "static": "static -a 0.0.0.0 -p 8888 -c 0 www",
+    "mosca":  "mosca --host 0.0.0.0 --http-port 8080 --http-static www",
+    "servers":  "parallelshell 'npm run mosca' 'node lib/Srv/z-all-srvs.js'",
+    "www":      "node task.js",
+    "lib":      "babel src -d lib",
+    "lib:w":    "babel src -d lib -w",
+    "bundle":   "browserify src/*.js -p [ factor-bundle -o 'cat > www/js/`basename $FILE`' ] -o www/bundle.js",
+    "bundle:w": "watchify   src/*.js -p [ factor-bundle -o 'cat > www/js/`basename $FILE`' ] -o www/bundle.js",
+    "build":    "node task.js && npm run lib && npm run bundle",
+    "build:w":  "node task.js && parallelshell 'npm run lib:w' 'npm run bundle:w'",
+    "demos":    "npm run build && npm run servers",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "browserify": {
+    "transform": [
+      "babelify"
+    ]
+  },
+  "babel": {
+    "presets": [
+      "es2015",
+      "react",
+      "stage-2"
+    ]
+  },
+  "devDependencies": {
+    "babel-cli": "^6.6.5",
+    "babel-core": "^6.9.0",
+    "babel-preset-es2015": "^6.9.0",
+    "babel-preset-react": "^6.5.0",
+    "babel-preset-stage-2": "^6.5.0",
+    "babelify": "^7.3.0",
+    "browserify": "^13.0.0",
+    "factor-bundle": "^2.5.0",
+    "node-static": "^0.7.8",
+    "parallelshell": "^2.0.0",
+    "watchify": "^3.7.0",
+    "fs-extra": "^0.30.0"
+  },
+  "dependencies": {
+    "marked": "^0.3.5",
+    "mosca": "^1.4.1",
+    "rc-progress": "^1.0.4",
+    "react": "^15.1.0",
+    "react-textarea-autosize": "^4.0.4",
+    "shortid": "^2.2.4",
+    "yomo": "1.1.0"
+  }
+}

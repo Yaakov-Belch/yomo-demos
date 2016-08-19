@@ -1,0 +1,9 @@
+{
+  "fetchAPI":  "https://api.github.com/users/",
+  "searchAPI": "https://api.github.com/search/issues",
+  "zenAPI":    "https://api.github.com/zen",
+  "queryAPI":  "https://api.reactmentor.com/?keep=1",
+
+  "ipcUrl":    "ws://localhost:8080/",
+  "insecureHttps": false
+}
