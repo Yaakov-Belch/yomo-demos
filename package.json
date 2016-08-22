@@ -71,6 +71,6 @@
     "react": "^15.1.0",
     "react-textarea-autosize": "^4.0.4",
     "shortid": "^2.2.4",
-    "yomo": "1.1.0"
+    "yomo": "1.1.1"
   }
 }
