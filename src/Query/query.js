@@ -1,12 +1,13 @@
 import React from 'react';
 import {yomoView,cacheFn,cacheAsync} from 'yomo/v1';
-import {delay,getBuffer}
+import {delay,getBuffer,OkIcon}
   from 'yomo/lib/experimental.js';
 import {config} from '../Util/getConfig.js';
 
 import TextArea from 'react-textarea-autosize';
 import {style}  from './style.js';
 import {Line as Progress} from 'rc-progress';
+
 
 export const survey=(state={},action)=>{
   return {
@@ -98,10 +99,7 @@ const HiddenUpLoad=yomoView(({yomo})=> {
 }, ()=>null);
 const LoadDone=yomoView(({yomo})=>{
   upload(yomo, getData(yomo));
-  return <i
-    className='fa fa-2x fa-check-circle'
-    style={{color: 'green'}}
-  />;
+  return <OkIcon size='2em'/>;
 });
 
 export const Page=yomoView(({yomo,children})=>{

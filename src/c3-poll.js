@@ -3,9 +3,6 @@ import {yomoApp,yomoView} from 'yomo/v1';
 import{cacheSlow,getText,delay} from 'yomo/lib/experimental.js';
 import {config} from './Util/getConfig.js';
 
-const Spinner=()=><i className='fa fa-spinner fa-spin'/>;
-const Delayed=()=><i className='fa fa-spinner'/>;
-
 const search=(state={poll:false},action)=>{
   switch(action.type) {
     case 'set': return {...state, [action.key]:action.value};
@@ -35,8 +32,7 @@ const SearchResults=yomoView(({yomo,poll})=>{
   const url=config.zenAPI;
   const res=(poll?slowTextData(yomo,url):'');
   return <span>{res}</span>;
-}, ({exception:{msg}})=>msg==='delay'? Delayed():Spinner()
-);
+});
 
 const slowTextData=cacheSlow({
   delay:   1000,
