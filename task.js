@@ -21,15 +21,14 @@ const examples=fs.readdirSync(src)
   .filter(f=>/\.js$/.test(f))
   .map(f=>f.replace(/\.js$/, ''));
 
-const awesome='<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" />';
-
 const html=(body)=>`
 <!DOCTYPE html>
 <html>
   <header>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    ${awesome}
+    <meta charset="utf-8"/>
+    <meta name="viewport"
+      content="width=device-width, initial-scale=1"
+    />
   </header>
   <body>
 ${body.replace(/^/g,'    ')}
