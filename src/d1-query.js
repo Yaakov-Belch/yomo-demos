@@ -4,7 +4,7 @@ import {survey, Survey, Page, Q, Qa, Qs, Qc, O}
   from './Query/query.js';
 
 const Survey123=yomoView(({yomo})=>{
-  const {a}=yomo();
+  const {a}=yomo.state();
   return <Survey>
     <Page>
       <Qc id='what-dev'>

@@ -32,7 +32,7 @@ const BmiCalculator=yomoView(({yomo})=>
 const Box=({children}) => <div style={boxStyle}>{children}</div>;
 
 const Input=yomoView(({yomo,children,name,unit})=>{
-  const value=yomo()[name];
+  const value=yomo.state()[name];
   const handleChange=(e)=>yomo.dispatch(setAction(name,e.target.value));
   return <div>
      <label style={labelStyle} htmlFor={name}>{children}</label>
@@ -50,7 +50,7 @@ const BmiResults=yomoView(({yomo})=>{
   </div>;
 });
 const bmiResults=(yomo)=>{
-  const {height,weight}=yomo();
+  const {height,weight}=yomo.state();
   const bmi=(weight/(height*height)).toFixed(1);
   const [category,style]=
     bmi< 18.5? ['underweight',{color:'red'}] :
@@ -68,7 +68,7 @@ const NormalWeights=yomoView(({yomo})=>{
     {weightForBmi(yomo,25.0)} kg
   </div>;
 });
-const getHeight=cacheFn((yomo)=>yomo().height);
+const getHeight=cacheFn((yomo)=>yomo.state().height);
 const weightForBmi=cacheFn((yomo,bmi)=> {
   const height=getHeight(yomo);
   console.log(`compute weightForBmi(${bmi}) for ${height} m`);

@@ -42,7 +42,7 @@ const CounterApp=yomoView(()=><div>
 
 const CounterView=yomoView(({yomo})=>
   <div style={{fontWeight:'bold',fontSize:'x-large'}}>
-    {yomo().counter}
+    {yomo.state().counter}
   </div>
 );
 
@@ -53,7 +53,7 @@ const SimpleButtons=yomoView(({yomo})=><div>
   <button {...clickCounter(yomo,-1)}>decrement</button>
 </div>);
 
-const getTimer=cacheFn((yomo)=>yomo().timer);
+const getTimer=cacheFn((yomo)=>yomo.state().timer);
 
 const TimedButton=yomoView(({yomo})=> {
   const timer=getTimer(yomo);

@@ -8,7 +8,7 @@ import {yomoBridge,onOffAction,reuse,yomoRun}
 const submit=cacheFn((yomo,votes,id)=>
   onOffAction(yomo,{votes})
 );
-const results=cacheFn((yomo)=>yomo());
+const results=cacheFn((yomo)=>yomo.state());
 
 const votes=(state={},action)=>{
   const {votes,onOff}=action;

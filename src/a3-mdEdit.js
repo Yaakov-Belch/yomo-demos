@@ -23,7 +23,7 @@ const boxStyle={
   border: 'solid #888 1px', borderRadius:'0.5em',
 };
 const MdEditor=yomoView(({yomo})=>{
-  const md=yomo();
+  const md=yomo.state();
   const handleChange=(e)=>yomo.dispatch(setAction(e.target.value));
   return <Box>
     Write some markdown text here: <br/>

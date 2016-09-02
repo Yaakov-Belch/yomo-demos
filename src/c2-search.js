@@ -12,7 +12,7 @@ const search=(state={query:''},action)=>{
 const setAction=(key,value)=>({type:'set',key,value});
 
 const Search=yomoView(({yomo})=>{
-  const {query}=yomo();
+  const {query}=yomo.state();
   const handleChange=(e)=>
     yomo.dispatch(setAction('query',e.target.value));
   return <Box>

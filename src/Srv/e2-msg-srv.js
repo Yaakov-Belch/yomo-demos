@@ -23,7 +23,7 @@ const setPeers=cacheFn((yomo,me,peers)=>{
   yomo.dispatchSoon({type:'peers',me,peers});
   return true;
 });
-const getPeers=cacheFn((yomo,me)=>yomo().peers[me]||{});
+const getPeers=cacheFn((yomo,me)=>yomo.state().peers[me]||{});
 
 const myId='srv/msg';
 const bridge=yomoBridge(

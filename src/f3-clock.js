@@ -11,9 +11,9 @@ const clock=(state=1000,action)=>action.dt||state||1000;
 const Clock=yomoView(({yomo})=>{
   const bProps=(dt)=>({
     onClick:()=>yomo.dispatch({type:'setDt',dt}),
-    style: (dt===yomo())?{backgroundColor:'#8888'}:{}
+    style: (dt===yomo.state())?{backgroundColor:'#8888'}:{}
   });
-  const delay=yomo();
+  const delay=yomo.state();
 
   const timeInt=yomoClock(yomo,0,delay)*delay;
 

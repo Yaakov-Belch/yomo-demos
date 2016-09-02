@@ -15,7 +15,7 @@ const decrementAction=()=>({type:'decrement'});
 const setAction=(value)=>({type:'set', value});
 
 const Counter=yomoView(({yomo})=>{
-  const count=yomo();
+  const count=yomo.state();
   const inc=()=>yomo.dispatch(incrementAction());
   const dec=()=>yomo.dispatch(decrementAction());
   const set=(value)=>()=>yomo.dispatch(setAction(value));

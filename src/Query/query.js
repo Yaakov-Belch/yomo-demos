@@ -44,13 +44,13 @@ const setStageAction=(stage)=>({type:'setStage', stage});
 const setAction=(id,value,info)=>({type:'set',id,value,info});
 
 const io=(yomo,id)=>{
-  const value=yomo().a[id] || '';
+  const value=yomo.state().a[id] || '';
   const onChange=e=>yomo.dispatch(setAction(id,e.target.value));
   return {value, onChange};
 };
 
 export const Survey=yomoView(({yomo,children})=>{
-  const {stage, maxStage}=yomo();
+  const {stage, maxStage}=yomo.state();
   const go=(stage)=>()=>yomo.dispatch(setStageAction(stage));
   const [skip, ...c2]=children;
   const showHeader=c2.length>1;
@@ -92,7 +92,7 @@ const upload=cacheAsync((yomo,data)=>{
   // return delay(1000);
   return data? getBuffer(opts) : delay(1);
 });
-const getData=cacheFn((yomo)=>yomo().data);
+const getData=cacheFn((yomo)=>yomo.state().data);
 const HiddenUpLoad=yomoView(({yomo})=> {
   try{upload(yomo, getData(yomo));} catch(e){}
   return <span/>;
@@ -126,7 +126,7 @@ export const Qs=yomoView(({yomo, id, children})=>{
 });
 export const Qc=yomoView(({yomo,id,children})=>{
   const [top,...rest]=children;
-  const value=yomo().a[id];
+  const value=yomo.state().a[id];
   const click=(v,child)=>{
     const {info}=child.props;
     if(!info) {

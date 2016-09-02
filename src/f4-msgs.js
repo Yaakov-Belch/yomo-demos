@@ -36,7 +36,9 @@ const msgList=combineReducers({msgs});
 const MsgList=yomoView(({yomo})=>
   <div>
     {sampleMsgs.map((txt,key)=><AddMsg key={key} txt={txt}/>)}
-    {yomo().msgs.map((m)=><ShowMsg {...{...m,key:m.id}}/>)}
+    {yomo.state().msgs.map((m)=>
+      <ShowMsg {...{...m,key:m.id}}/>)
+    }
   </div>
 );
 
