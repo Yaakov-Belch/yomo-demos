@@ -2,13 +2,13 @@ import {config} from '../Util/getConfig.js';
 const {ipcUrl}=config;
 
 import {yomoApp,cacheFn} from 'yomo/v1';
-import {yomoBridge,onOffAction,reuse}
+import {yomoBridge,onOffAction,reuse,yomoRun}
   from 'yomo/lib/experimental.js';
 
 const submit=cacheFn((yomo,votes,id)=>
   onOffAction(yomo,{votes})
 );
-const results=cacheFn((yomo)=>yomo());
+const results=cacheFn((yomo)=>yomo.state());
 
 const votes=(state={},action)=>{
   const {votes,onOff}=action;
@@ -28,7 +28,5 @@ const bridge=yomoBridge(
   {ipcUrl,myId:'srv/vote'}
 );
 const runBridge=bridge.curry({});
-yomoApp({
-  reducer: (votes),
-  run: [runBridge],
-});
+const yomo=yomoApp({reducer: (votes)});
+yomoRun(yomo,false,runBridge);

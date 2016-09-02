@@ -12,7 +12,7 @@ const search=(state={poll:false},action)=>{
 const setAction=(key,value)=>({type:'set',key,value});
 
 const Search=yomoView(({yomo})=>{
-  const {poll}=yomo();
+  const {poll}=yomo.state();
   const click=(v)=>()=>yomo.dispatch(setAction('poll',v));
   const Button=({v,txt})=>
     <button

@@ -7,25 +7,25 @@ import React from 'react';
 import {yomoApp, yomoView, cacheFn, yomoAuditor, yomoRunner}
   from 'yomo/v1';
 import {
-  yomoBridge,linkPipes, getPipe,pipes,
+  yomoBridge,linkPipes, getPipe,pipes, yomoRun,
   combineReducers, reuse
 } from 'yomo/lib/experimental.js';
 
 const loginHandler=(yomo)=>{
-  const me=yomo().inputs.me;
+  const me=yomo.state().inputs.me;
   return ()=>yomo.dispatch({type:'login',me});
 };
 
 const iHandler=(yomo,key,value)=>()=>
   yomo.dispatch({type:'input',key,value});
 const ispec=(yomo,key)=>({
-  value:yomo().inputs[key]||'',
+  value:yomo.state().inputs[key]||'',
   onChange: (e)=>yomo.dispatch(
     {type:'input',key,value:e.target.value}
   ),
 })
 const peerHandler=(yomo)=>{
-  const {peer}=yomo().inputs;
+  const {peer}=yomo.state().inputs;
   return ()=>yomo.dispatch({type:'addPeer',peer});
 }
 const peersAction=(peers)=>({type:'peers',peers});
@@ -61,7 +61,7 @@ const msgClient=combineReducers({
 });
 
 const MsgClient=yomoView(({yomo})=>
-  yomo().me?<MsgForm/>:<LoginForm/>
+  yomo.state().me?<MsgForm/>:<LoginForm/>
 );
 const LoginForm=yomoView(({yomo})=><div>
   Open this URL in several browsers. <br/>
@@ -72,12 +72,12 @@ const MsgForm=yomoView(()=><div>
   <Peers/><NewMessage/><MsgList i={true}/><MsgList i={false}/>
 </div>);
 const Peers=yomoView(({yomo})=>{
-  const {peer}=yomo().inputs;
+  const {peer}=yomo.state().inputs;
   return <div>
     <input type='text' {...ispec(yomo,'peer')}/>
     <button onClick={peerHandler(yomo)}>add</button>
     <hr/>
-    {Object.keys(yomo().peers).map(p=>
+    {Object.keys(yomo.state().peers).map(p=>
       <button key={p}
         onClick={iHandler(yomo,'peer',p)}
         style={p===peer? {backgroundColor:'#888'}:{}}
@@ -88,8 +88,8 @@ const Peers=yomoView(({yomo})=>{
   </div>;
 });
 const sendMsg=(yomo)=>{
-  const {me}=yomo();
-  const {peer,msg}=yomo().inputs;
+  const {me}=yomo.state();
+  const {peer,msg}=yomo.state().inputs;
   return ()=>{
     yomo.dispatch({type:'pipe',id:`${me}-${peer}`,value:msg});
     yomo.dispatch({type:'input',key:'msg',value:''});
@@ -98,12 +98,12 @@ const sendMsg=(yomo)=>{
 const NewMessage=yomoView(({yomo})=><div>
   <input type='text' {...ispec(yomo,'msg')}/>
   <button onClick={sendMsg(yomo)}>
-    Send from {yomo().me} to {yomo().inputs.peer}.
+    Send from {yomo.state().me} to {yomo.state().inputs.peer}.
   </button>
 </div>);
 const MsgList=yomoView(({yomo,i})=>{
-  const me=yomo().me;
-  const peerList=Object.keys(yomo().peers);
+  const me=yomo.state().me;
+  const peerList=Object.keys(yomo.state().peers);
   return <div>
     <hr/>
     {i? 'incoming':'outgoing'} messages:
@@ -112,7 +112,7 @@ const MsgList=yomoView(({yomo,i})=>{
   </div>
 });
 const PeerMsgs=yomoView(({yomo,i,peer})=>{
-  const me=yomo().me;
+  const me=yomo.state().me;
   const pipeId=i? `${peer}-${me}`:`${me}-${peer}`;
   const {bottom,data}=getPipe(yomo,pipeId);
   const accHandler=(key)=>()=>yomo.dispatch(
@@ -131,8 +131,8 @@ const PeerMsgs=yomoView(({yomo,i,peer})=>{
 const peerId='srv/msg';
 const bridge=yomoBridge([{linkPipes}],{ipcUrl});
 
-const rdMe=cacheFn(yomo=>yomo().me);
-const rdPeers=cacheFn(yomo=>yomo().peers);
+const rdMe=cacheFn(yomo=>yomo.state().me);
+const rdPeers=cacheFn(yomo=>yomo.state().peers);
 const setPeers=yomoRunner((yomo)=>
   bridge(yomo,
     {peerId,fname:'setPeers'},
@@ -162,7 +162,7 @@ const xm1=(yomo,a,b)=>{
   );
 };
 
-yomoApp({
-  reducer:msgClient, View:MsgClient,
-  run:[setPeers,getPeers,xMsgs],
-});
+const yomo=yomoApp({reducer:msgClient, View:MsgClient});
+yomoRun(yomo,false,yomoApp);
+yomoRun(yomo,false,getPeers);
+yomoRun(yomo,false,xMsgs);

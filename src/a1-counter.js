@@ -13,7 +13,7 @@ const incrementAction=()=>({type:'increment'});
 const decrementAction=()=>({type:'decrement'});
 
 const Counter=yomoView(({yomo})=>{
-  const count=yomo();
+  const count=yomo.state();
   const inc=()=>yomo.dispatch(incrementAction());
   const dec=()=>yomo.dispatch(decrementAction());
   return <div>

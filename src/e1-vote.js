@@ -3,7 +3,7 @@ const {ipcUrl}=config;
 
 import React from 'react';
 import {yomoApp, yomoView, yomoRunner} from 'yomo/v1';
-import {combineReducers,yomoBridge}
+import {combineReducers,yomoBridge,yomoRun}
   from 'yomo/lib/experimental.js';
 
 import shortid from 'shortid';
@@ -39,14 +39,16 @@ const bridge=yomoBridge([],{ipcUrl,myId:id});
 const submit =bridge.curry({peerId:'srv/vote',fname:'submit'});
 const results=bridge.curry({peerId:'srv/vote',fname:'results'});
 
-const sendIt=yomoRunner((yomo)=>submit(yomo,yomo().votes,id));
+const sendIt=yomoRunner(
+  (yomo)=>submit(yomo,yomo.state().votes,id)
+);
 
 const Voting=yomoView(()=><div>
   Open this URL in several browsers. <br/>
   <Input/><Results/>
 </div>);
 const Input=yomoView(({yomo})=>{
-  const {input}=yomo();
+  const {input}=yomo.state();
   const handler=(e)=>yomo.dispatch(setAction(e.target.value));
   const add=(value)=>()=>yomo.dispatch(voteAction(input,value));
   return <div>
@@ -55,7 +57,7 @@ const Input=yomoView(({yomo})=>{
   </div>;
 });
 const Results=yomoView(({yomo})=>{
-  const {votes}=yomo();
+  const {votes}=yomo.state();
   const allVotes=results(yomo);
   const castVote=(key)=>()=>yomo.dispatch(voteAction(key,'!'));
   return <div>
@@ -70,7 +72,6 @@ const Results=yomoView(({yomo})=>{
   </div>;
 });
 
-yomoApp({
-  reducer:voting, View: Voting,
-  run:[sendIt],
-});
+const yomo=yomoApp({reducer:voting, View: Voting});
+yomoRun(yomo,false,sendIt);
+

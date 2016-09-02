@@ -3,7 +3,7 @@ const {ipcUrl}=config;
 
 import {yomoApp,cacheFn,yomoRunner} from 'yomo/v1';
 import {
-  yomoBridge,linkPipes, getPipe,pipes,
+  yomoBridge,linkPipes, getPipe,pipes, yomoRun,
   combineReducers, reuse
 } from 'yomo/lib/experimental.js';
 
@@ -23,7 +23,7 @@ const setPeers=cacheFn((yomo,me,peers)=>{
   yomo.dispatchSoon({type:'peers',me,peers});
   return true;
 });
-const getPeers=cacheFn((yomo,me)=>yomo().peers[me]||{});
+const getPeers=cacheFn((yomo,me)=>yomo.state().peers[me]||{});
 
 const myId='srv/msg';
 const bridge=yomoBridge(
@@ -32,8 +32,6 @@ const bridge=yomoBridge(
 );
 const runBridge=bridge.curry({});
 
-yomoApp({
-  reducer: combineReducers({peers,pipes}),
-  run: [runBridge],
-});
+const yomo=yomoApp({reducer: combineReducers({peers,pipes})});
+yomoRun(yomo,false,runBridge);
 

@@ -12,7 +12,7 @@ const showRepos=(state={input:''},action)=>{
 const setAction=(key,value)=>({type:'set',key,value});
 
 const ShowRepos=yomoView(({yomo})=>{
-  const {input,user}=yomo();
+  const {input,user}=yomo.state();
   const handleChange=(e)=>
     yomo.dispatch(setAction('input',e.target.value));
   const submit=()=>
