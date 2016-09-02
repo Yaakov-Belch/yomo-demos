@@ -1,7 +1,7 @@
 import React from 'react';
 import {yomoView, yomoApp, yomoClock,dispatchAfter}
   from 'yomo/v1';
-import {timeNow,combineReducers,reuse}
+import {timeNow,combineReducers,reuse,persistRedux}
   from 'yomo/lib/experimental.js';
 
 const sampleMsgs=['Hello world.', 'Hey!', 'How are you?'];
@@ -71,5 +71,5 @@ const ShowMsg=yomoView(({yomo,id,txt,rmTime})=>{
   </div>
 });
 
-yomoApp({reducer:msgList,View:MsgList});
- 
+const yomo=yomoApp({reducer:msgList,View:MsgList});
+persistRedux(yomo,'f5-msg',false); 
