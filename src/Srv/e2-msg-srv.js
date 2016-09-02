@@ -3,7 +3,7 @@ const {ipcUrl}=config;
 
 import {yomoApp,cacheFn,yomoRunner} from 'yomo/v1';
 import {
-  yomoBridge,linkPipes, getPipe,pipes,
+  yomoBridge,linkPipes, getPipe,pipes, yomoRun,
   combineReducers, reuse
 } from 'yomo/lib/experimental.js';
 
@@ -32,8 +32,6 @@ const bridge=yomoBridge(
 );
 const runBridge=bridge.curry({});
 
-yomoApp({
-  reducer: combineReducers({peers,pipes}),
-  run: [runBridge],
-});
+const yomo=yomoApp({reducer: combineReducers({peers,pipes})});
+yomoRun(yomo,false,runBridge);
 

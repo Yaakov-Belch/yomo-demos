@@ -3,7 +3,7 @@ const {ipcUrl}=config;
 
 import React from 'react';
 import {yomoApp, yomoView, yomoRunner} from 'yomo/v1';
-import {combineReducers,yomoBridge}
+import {combineReducers,yomoBridge,yomoRun}
   from 'yomo/lib/experimental.js';
 
 import shortid from 'shortid';
@@ -70,7 +70,6 @@ const Results=yomoView(({yomo})=>{
   </div>;
 });
 
-yomoApp({
-  reducer:voting, View: Voting,
-  run:[sendIt],
-});
+const yomo=yomoApp({reducer:voting, View: Voting});
+yomoRun(yomo,false,sendIt);
+

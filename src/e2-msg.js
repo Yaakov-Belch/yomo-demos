@@ -7,7 +7,7 @@ import React from 'react';
 import {yomoApp, yomoView, cacheFn, yomoAuditor, yomoRunner}
   from 'yomo/v1';
 import {
-  yomoBridge,linkPipes, getPipe,pipes,
+  yomoBridge,linkPipes, getPipe,pipes, yomoRun,
   combineReducers, reuse
 } from 'yomo/lib/experimental.js';
 
@@ -162,7 +162,7 @@ const xm1=(yomo,a,b)=>{
   );
 };
 
-yomoApp({
-  reducer:msgClient, View:MsgClient,
-  run:[setPeers,getPeers,xMsgs],
-});
+const yomo=yomoApp({reducer:msgClient, View:MsgClient});
+yomoRun(yomo,false,yomoApp);
+yomoRun(yomo,false,getPeers);
+yomoRun(yomo,false,xMsgs);
