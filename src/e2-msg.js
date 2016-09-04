@@ -163,6 +163,6 @@ const xm1=(yomo,a,b)=>{
 };
 
 const yomo=yomoApp({reducer:msgClient, View:MsgClient});
-yomoRun(yomo,false,yomoApp);
+yomoRun(yomo,false,setPeers);
 yomoRun(yomo,false,getPeers);
 yomoRun(yomo,false,xMsgs);
