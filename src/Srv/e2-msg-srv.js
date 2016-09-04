@@ -1,7 +1,7 @@
 import {config} from '../Util/getConfig.js';
 const {ipcUrl}=config;
 
-import {yomoApp,cacheFn,yomoRunner} from 'yomo/v1';
+import {yomoApp,cacheFn} from 'yomo/v1';
 import {
   yomoBridge,linkPipes, getPipe,pipes, yomoRun,
   combineReducers, reuse

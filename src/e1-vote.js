@@ -2,7 +2,7 @@ import {config} from './Util/getConfig.js';
 const {ipcUrl}=config;
 
 import React from 'react';
-import {yomoApp, yomoView, yomoRunner} from 'yomo/v1';
+import {yomoApp, yomoView, cacheFn} from 'yomo/v1';
 import {combineReducers,yomoBridge,yomoRun}
   from 'yomo/lib/experimental.js';
 
@@ -39,7 +39,7 @@ const bridge=yomoBridge([],{ipcUrl,myId:id});
 const submit =bridge.curry({peerId:'srv/vote',fname:'submit'});
 const results=bridge.curry({peerId:'srv/vote',fname:'results'});
 
-const sendIt=yomoRunner(
+const sendIt=cacheFn(
   (yomo)=>submit(yomo,yomo.state().votes,id)
 );
 

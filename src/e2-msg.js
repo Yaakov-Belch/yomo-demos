@@ -4,7 +4,7 @@ const {ipcUrl}=config;
 const srvId='srv/msg';
  
 import React from 'react';
-import {yomoApp, yomoView, cacheFn, yomoAuditor, yomoRunner}
+import {yomoApp, yomoView, cacheFn, yomoAuditor}
   from 'yomo/v1';
 import {
   yomoBridge,linkPipes, getPipe,pipes, yomoRun,
@@ -133,7 +133,7 @@ const bridge=yomoBridge([{linkPipes}],{ipcUrl});
 
 const rdMe=cacheFn(yomo=>yomo.state().me);
 const rdPeers=cacheFn(yomo=>yomo.state().peers);
-const setPeers=yomoRunner((yomo)=>
+const setPeers=cacheFn((yomo)=>
   bridge(yomo,
     {peerId,fname:'setPeers'},
     rdMe(yomo),rdPeers(yomo)
@@ -147,7 +147,7 @@ const getPeers=yomoAuditor(yomo=>{
   return ok && {type:'peers',peers:r};
 });
 
-const xMsgs=yomoRunner(yomo=>{
+const xMsgs=cacheFn(yomo=>{
   const me=rdMe(yomo);
   const p =rdPeers(yomo);
   for(let peer in p) {
