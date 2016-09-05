@@ -1,7 +1,7 @@
 import React from 'react';
-import {yomoView, yomoApp, cacheFn, yomoClock, dispatchAfter}
+import {yomoView, yomoApp, cacheFn, yomoClock}
   from 'yomo/v1';
-import {timeNow,combineReducers,reuse}
+import {timeNow,combineReducers,reuse,dispatchAfter}
   from 'yomo/lib/experimental.js';
 
 // state: {counter, timer}

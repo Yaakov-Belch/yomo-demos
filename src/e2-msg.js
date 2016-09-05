@@ -4,10 +4,10 @@ const {ipcUrl}=config;
 const srvId='srv/msg';
  
 import React from 'react';
-import {yomoApp, yomoView, cacheFn, yomoAuditor}
+import {yomoApp, yomoView, cacheFn}
   from 'yomo/v1';
 import {
-  yomoBridge,linkPipes, getPipe,pipes, yomoRun,
+  yomoBridge,linkPipes, getPipe,pipes, yomoRun, yomoAuditor
   combineReducers, reuse
 } from 'yomo/lib/experimental.js';
 

@@ -1,7 +1,7 @@
 import React from 'react';
-import {yomoView, yomoApp, yomoClock,dispatchAfter}
+import {yomoView, yomoApp, yomoClock}
   from 'yomo/v1';
-import {timeNow,combineReducers,reuse}
+import {timeNow,combineReducers,reuse,dispatchAfter}
   from 'yomo/lib/experimental.js';
 
 const sampleMsgs=['Hello world.', 'Hey!', 'How are you?'];
