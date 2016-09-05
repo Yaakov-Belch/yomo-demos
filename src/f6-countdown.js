@@ -60,7 +60,7 @@ const TimedButton=yomoView(({yomo})=> {
   timer && dispatchAfter(yomo,timer,{type:'timer',change:1});
   if(timer) {
     return <button {...clickTimer(yomo,false)}>
-      Reset timer ({1-yomoClock(yomo,timer,interval)})
+      Stop timer ({1-yomoClock(yomo,timer,interval)})
     </button>
   } else {
     return <button {...clickTimer(yomo,countDown*interval)}>
