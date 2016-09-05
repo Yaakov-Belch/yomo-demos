@@ -7,7 +7,7 @@ import React from 'react';
 import {yomoApp, yomoView, cacheFn}
   from 'yomo/v1';
 import {
-  yomoBridge,linkPipes, getPipe,pipes, yomoRun, yomoAuditor
+  yomoBridge,linkPipes, getPipe,pipes, yomoRun, yomoAuditor,
   combineReducers, reuse
 } from 'yomo/lib/experimental.js';
 
