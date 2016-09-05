@@ -63,7 +63,7 @@ const msgList=combineReducers({msgs});
 
 const MsgList=yomoView(({yomo})=>
   <div>
-    <AddMsg/>
+    <AddMsg/> Add messages, click on them and hit [reload].
     {yomo.state().msgs.map((m)=>
       <ShowMsg {...{...m,key:m.id}}/>)
     }
