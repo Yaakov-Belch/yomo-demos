@@ -1,2 +1,2 @@
-require('./e1-vote-srv.js');
-require('./e2-msg-srv.js');
+require('./g1-voting-srv.js');
+require('./h1-live-msg-srv.js');

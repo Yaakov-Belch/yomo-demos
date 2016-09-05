@@ -100,7 +100,7 @@ const HiddenUpLoad=yomoView(({yomo})=> {
 const LoadDone=yomoView(({yomo})=>{
   upload(yomo, getData(yomo));
   return <OkIcon size='2em'/>;
-});
+},{size:'2em'});
 
 export const Page=yomoView(({yomo,children})=>{
   return <div>
