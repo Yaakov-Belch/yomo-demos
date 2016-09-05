@@ -3,7 +3,10 @@ import {yomoView, yomoApp, yomoClock} from 'yomo/v1';
 
 let counter=0; const colors=['black','red','green','blue'];
 const style=()=>
-  ({border:'5px solid black', borderRadius:8 , padding:5});
+  ({
+    fontWeight:'bold',fontSize:'x-large',
+    border:'1px solid black', padding:'0.2em'
+  });
 
 const clock=(state=1000,action)=>action.dt||state||1000;
 const Clock=yomoView(({yomo})=>{
