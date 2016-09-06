@@ -39,7 +39,7 @@ ${body.replace(/^/g,'    ')}
 const iBody=(examples)=>`
 <ul>
 ${examples.map(f=>
-`  <li><a href='/example/${f}.html'>${f}</a></li>`
+`  <li><a href='example/${f}.html'>${f}</a></li>`
 ).join("\n")}
 </ul>
 `;
@@ -49,8 +49,8 @@ fs.outputFileSync(index,iBody(examples));
 
 const xBody=(file)=>`
 <div id="root"></div>
-<script type="text/javascript" src="/bundle.js"></script>
-<script type="text/javascript" src="/js/${file}.js"></script>
+<script type="text/javascript" src="../bundle.js"></script>
+<script type="text/javascript" src="../js/${file}.js"></script>
 `;
 
 fs.removeSync(dest);
