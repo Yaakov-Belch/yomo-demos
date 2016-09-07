@@ -4,6 +4,7 @@
   "zenAPI":    "https://api.github.com/zen",
   "queryAPI":  "https://api.reactmentor.com/?keep=1",
 
-  "ipcUrl":    "ws://localhost:8080/",
+  "ipcUrl":       "ws://localhost:8080/",
+  "clientIpcUrl": "ws://",
   "insecureHttps": false
 }

@@ -1,5 +1,5 @@
 import {config} from './Util/getConfig.js';
-const {ipcUrl}=config;
+const ipcUrl=config.clientIpcUrl;
 
 import React from 'react';
 import {yomoApp, yomoView, cacheFn} from 'yomo/v1';

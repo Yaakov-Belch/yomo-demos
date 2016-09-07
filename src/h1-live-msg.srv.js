@@ -2,7 +2,7 @@ import {config} from './Util/getConfig.js';
 const {ipcUrl}=config;
 
 const peers=['Alice','Bob','Carol'];
-const myId ='Srv1';
+const myId ='Srv0';
 
 import {yomoApp,cacheFn} from 'yomo/v1';
 import {
