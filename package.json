@@ -1,12 +1,17 @@
 {
   "name": "yomo-demos",
-  "private": true,
   "version": "1.0.0",
+  "author": "Yaakov Belch",
+  "license": "Apache-2.0",
+  "private": true,
   "description": "Examples using yomo.js",
-  "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Yaakov-Belch/yomo-examples.git"
+    "url": "git+https://github.com/Yaakov-Belch/yomo-demos.git"
+  },
+  "homepage": "https://github.com/Yaakov-Belch/yomo-demos#readme",
+  "bugs": {
+    "url": "https://github.com/Yaakov-Belch/yomo-demos/issues"
   },
   "keywords": [
     "React",
@@ -20,10 +25,6 @@
   ],
   "author": "Yaakov Belch",
   "license": "Apache-2.0",
-  "bugs": {
-    "url": "https://github.com/Yaakov-Belch/yomo-demos/issues"
-  },
-  "homepage": "https://github.com/Yaakov-Belch/yomo-demos#readme",
   "scripts": {
     "static": "static -a 0.0.0.0 -p 8888 -c 0 www",
     "mosca":  "mosca --host 0.0.0.0 --http-port 8080 --http-static www",
