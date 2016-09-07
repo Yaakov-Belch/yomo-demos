@@ -2,7 +2,7 @@ import {config} from './Util/getConfig.js';
 const {ipcUrl}=config;
 
 const peers   =['Alice','Bob','Carol'];
-const srv='Srv1';
+const srv='Srv0';
 
 import React from 'react';
 import {yomoApp, yomoView, cacheFn, waitUntil, yomoClock}
@@ -68,7 +68,9 @@ const MsgClient=yomoView(({yomo})=>
 );
 
 const LoginPage=yomoView(({yomo})=><div>
-  <em>Open this URL in several browsers.</em> <br/> <br/>
+  <em><a href='#' target='_blank'>
+    Open this URL in several browser windows.
+  </a></em>
   Sign in as: &nbsp;
   {peers.map(me=>
     <button key={me} {...loginButton(yomo,me)}>{me}</button>
