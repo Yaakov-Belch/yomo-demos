@@ -44,7 +44,10 @@ const sendIt=cacheFn(
 );
 
 const Voting=yomoView(()=><div>
-  Open this URL in several browsers. <br/>
+  <em><a href='#' target='_blank'>
+    Open this URL in several browser windows.
+  </a></em>
+  <br/> <br/>
   <Input/><Results/>
 </div>);
 const Input=yomoView(({yomo})=>{

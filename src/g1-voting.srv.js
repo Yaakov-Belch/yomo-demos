@@ -1,4 +1,4 @@
-import {config} from '../Util/getConfig.js';
+import {config} from './Util/getConfig.js';
 const {ipcUrl}=config;
 
 import {yomoApp,cacheFn} from 'yomo/v1';

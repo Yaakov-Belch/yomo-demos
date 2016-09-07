@@ -1,14 +1,20 @@
 {
   "name": "yomo-demos",
-  "private": true,
   "version": "1.0.0",
+  "author": "Yaakov Belch",
+  "license": "Apache-2.0",
+  "private": true,
   "description": "Examples using yomo.js",
-  "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Yaakov-Belch/yomo-examples.git"
+    "url": "git+https://github.com/Yaakov-Belch/yomo-demos.git"
+  },
+  "homepage": "https://github.com/Yaakov-Belch/yomo-demos#readme",
+  "bugs": {
+    "url": "https://github.com/Yaakov-Belch/yomo-demos/issues"
   },
   "keywords": [
+    "Yomo",
     "React",
     "Redux",
     "Mobx",
@@ -20,19 +26,15 @@
   ],
   "author": "Yaakov Belch",
   "license": "Apache-2.0",
-  "bugs": {
-    "url": "https://github.com/Yaakov-Belch/yomo-demos/issues"
-  },
-  "homepage": "https://github.com/Yaakov-Belch/yomo-demos#readme",
   "scripts": {
     "static": "static -a 0.0.0.0 -p 8888 -c 0 www",
     "mosca":  "mosca --host 0.0.0.0 --http-port 8080 --http-static www",
-    "servers":  "parallelshell 'npm run mosca' 'node lib/Srv/z-all-srvs.js'",
+    "servers":  "parallelshell 'npm run mosca' 'node lib/Util/start-srv.js'",
     "www":      "node task.js",
     "lib":      "babel src -d lib",
     "lib:w":    "babel src -d lib -w",
-    "bundle":   "browserify src/*.js -p [ factor-bundle -o 'cat > www/js/`basename $FILE`' ] -o www/bundle.js",
-    "bundle:w": "watchify   src/*.js -p [ factor-bundle -o 'cat > www/js/`basename $FILE`' ] -o www/bundle.js",
+    "bundle":   "browserify src/*.client.js -p [ factor-bundle -o 'cat > www/js/`basename $FILE`' ] -o www/bundle.js",
+    "bundle:w": "watchify   src/*.client.js -p [ factor-bundle -o 'cat > www/js/`basename $FILE`' ] -o www/bundle.js",
     "build":    "node task.js && npm run lib && npm run bundle",
     "build:w":  "node task.js && parallelshell 'npm run lib:w' 'npm run bundle:w'",
     "demos":    "npm run build && npm run servers",

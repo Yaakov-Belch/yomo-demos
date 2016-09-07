@@ -18,7 +18,7 @@ console.log(icon);
 fs.outputFileSync(icon, fs.readFileSync('favicon.ico'));
 
 const examples=fs.readdirSync(src)
-  .filter(f=>/\.js$/.test(f))
+  .filter(f=>/\.client\.js$/.test(f))
   .map(f=>f.replace(/\.js$/, ''));
 
 const html=(body)=>`
@@ -37,11 +37,11 @@ ${body.replace(/^/g,'    ')}
 `;
 
 const iBody=(examples)=>`
-<ul>
-${examples.map(f=>
-`  <li><a href='example/${f}.html'>${f}</a></li>`
-).join("\n")}
-</ul>
+<ul>${examples.map(f=>`
+  <li><a href='example/${f}.html'>
+    ${f.replace('.client','')}
+  </a></li>
+`).join("\n")}</ul>
 `;
 
 console.log(index);

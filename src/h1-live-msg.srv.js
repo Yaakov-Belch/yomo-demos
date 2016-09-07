@@ -1,4 +1,4 @@
-import {config} from '../Util/getConfig.js';
+import {config} from './Util/getConfig.js';
 const {ipcUrl}=config;
 
 const peers=['Alice','Bob','Carol'];
