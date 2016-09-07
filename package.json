@@ -27,7 +27,7 @@
   "scripts": {
     "static": "static -a 0.0.0.0 -p 8888 -c 0 www",
     "mosca":  "mosca --host 0.0.0.0 --http-port 8080 --http-static www",
-    "servers":  "parallelshell 'npm run mosca' 'node lib/Srv/z-all-srvs.js'",
+    "servers":  "parallelshell 'npm run mosca' 'node lib/Util/start-srv.js'",
     "www":      "node task.js",
     "lib":      "babel src -d lib",
     "lib:w":    "babel src -d lib -w",

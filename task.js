@@ -18,7 +18,7 @@ console.log(icon);
 fs.outputFileSync(icon, fs.readFileSync('favicon.ico'));
 
 const examples=fs.readdirSync(src)
-  .filter(f=>/\.js$/.test(f))
+  .filter(f=>/\.js$/.test(f) && ! /\.srv\./.test(f))
   .map(f=>f.replace(/\.js$/, ''));
 
 const html=(body)=>`
