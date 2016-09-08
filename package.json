@@ -24,20 +24,18 @@
     "server",
     "fullstack"
   ],
-  "author": "Yaakov Belch",
-  "license": "Apache-2.0",
   "scripts": {
     "static": "static -a 0.0.0.0 -p 8888 -c 0 www",
-    "mosca":  "mosca --host 0.0.0.0 --http-port 8080 --http-static www",
-    "servers":  "parallelshell 'npm run mosca' 'node lib/Util/start-srv.js'",
-    "www":      "node task.js",
-    "lib":      "babel src -d lib",
-    "lib:w":    "babel src -d lib -w",
-    "bundle":   "browserify src/*.client.js -p [ factor-bundle -o 'cat > www/js/`basename $FILE`' ] -o www/bundle.js",
+    "mosca": "mosca --host 0.0.0.0 --http-port 8080 --http-static www",
+    "servers": "parallelshell 'npm run mosca' 'node lib/Util/start-srv.js'",
+    "www": "node task.js",
+    "lib": "babel src -d lib",
+    "lib:w": "babel src -d lib -w",
+    "bundle": "browserify src/*.client.js -p [ factor-bundle -o 'cat > www/js/`basename $FILE`' ] -o www/bundle.js",
     "bundle:w": "watchify   src/*.client.js -p [ factor-bundle -o 'cat > www/js/`basename $FILE`' ] -o www/bundle.js",
-    "build":    "node task.js && npm run lib && npm run bundle",
-    "build:w":  "node task.js && parallelshell 'npm run lib:w' 'npm run bundle:w'",
-    "demos":    "npm run build && npm run servers",
+    "build": "node task.js && npm run lib && npm run bundle",
+    "build:w": "node task.js && parallelshell 'npm run lib:w' 'npm run bundle:w'",
+    "demos": "npm run build && npm run servers",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "browserify": {
@@ -71,7 +69,7 @@
     "mosca": "^1.4.1",
     "rc-progress": "^1.0.4",
     "react": "^15.1.0",
-    "react-textarea-autosize": "^4.0.4",
+    "react-textarea-autosize": "^4.0.5",
     "shortid": "^2.2.4",
     "yomo": "1.3.0"
   }
