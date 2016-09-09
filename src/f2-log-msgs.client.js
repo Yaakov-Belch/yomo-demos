@@ -34,7 +34,7 @@ const slider=(yomo,rmTime,delay)=>{
 
 let id=1;
 
-// state: {msgs: [{id,txt,rmTime}...] ... }
+// state: [{id,txt,rmTime}...]
 
 const addMsg=(yomo)=>yomo.dispatch({
   type:'newMsg',id:id++,txt:randomMsg(), rmTime:timeNow()+delay
@@ -54,17 +54,21 @@ const newMsgs=(action)=>{
   const {type,id,txt,rmTime}=action;
   return (type==='newMsg')? [{id,txt,rmTime}]: []
 }
-const msgs=(state=[],action)=>
-  reuse(state,[
+const msgs=(state=[],action)=> {
+  state=reuse(state,[
     ...state.map(m=>msg(m,action)).filter(m=>m),
     ...newMsgs(action)
   ]);
-const msgList=combineReducers({msgs});
+  console.log(action);
+  console.log(JSON.stringify(state,null,2));
+  return state;
+}
 
 const MsgList=yomoView(({yomo})=>
   <div>
+    {console.log(yomo.state())&&null||null}
     <AddMsg/> Add messages, click on them and hit [reload].
-    {yomo.state().msgs.map((m)=><ShowMsg key={m.id} {...m}/>)}
+    {yomo.state().map((m)=><ShowMsg key={m.id} {...m}/>)}
   </div>
 );
 
@@ -74,15 +78,17 @@ const AddMsg=yomoView(({yomo})=>
 
 const ShowMsg=yomoView(({yomo,id,txt,rmTime})=>{
   dispatchAfter(yomo,rmTime,{type:'rmMsg',id});
-  return <div
-    style={slider(yomo,rmTime,delay)}
-    onClick={()=>restartTimeout(yomo,id)}
-  >
-    {txt}
-  </div>
+  const handler=()=>restartTimeout(yomo,id);
+  return (
+    <Msg onClick={handler} interval={delay} end={rmTime}>{txt}</Msg>
+  );
 });
 
-const ProgressSlider=yomoView(({yomo})=>{});
+const Msg=yomoView(({yomo,interval,end,onClick,children})=>
+  <div style={slider(yomo,end,interval)} onClick={onClick}>
+    {children}
+  </div>
+);
 
-const yomo=yomoApp({reducer:msgList,View:MsgList});
+const yomo=yomoApp({reducer:msgs,View:MsgList});
 persistRedux(yomo,'f5-msg',false); 
