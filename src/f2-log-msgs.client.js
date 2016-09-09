@@ -39,14 +39,14 @@ let id=1;
 const addMsg=(yomo)=>yomo.dispatch({
   type:'newMsg',id:id++,txt:randomMsg(), rmTime:timeNow()+delay
 });
-const refreshMsg=(yomo,id)=>yomo.dispatch({
-  type:'refreshMsg',id,rmTime:timeNow()+delay
+const restartTimeout=(yomo,id)=>yomo.dispatch({
+  type:'restartTimeout',id,rmTime:timeNow()+delay
 });
 
 const msg=(state,action)=>{
   if(state.id===action.id) { switch(action.type) {
     case 'rmMsg': return null;
-    case 'refreshMsg': return {...state,rmTime:action.rmTime};
+    case 'restartTimeout': return {...state,rmTime:action.rmTime};
   }}
   return state;
 };
@@ -64,9 +64,7 @@ const msgList=combineReducers({msgs});
 const MsgList=yomoView(({yomo})=>
   <div>
     <AddMsg/> Add messages, click on them and hit [reload].
-    {yomo.state().msgs.map((m)=>
-      <ShowMsg {...{...m,key:m.id}}/>)
-    }
+    {yomo.state().msgs.map((m)=><ShowMsg key={m.id} {...m}/>)}
   </div>
 );
 
@@ -77,13 +75,14 @@ const AddMsg=yomoView(({yomo})=>
 const ShowMsg=yomoView(({yomo,id,txt,rmTime})=>{
   dispatchAfter(yomo,rmTime,{type:'rmMsg',id});
   return <div
-    key={id}
     style={slider(yomo,rmTime,delay)}
-    onClick={()=>refreshMsg(yomo,id)}
+    onClick={()=>restartTimeout(yomo,id)}
   >
     {txt}
   </div>
 });
+
+const ProgressSlider=yomoView(({yomo})=>{});
 
 const yomo=yomoApp({reducer:msgList,View:MsgList});
 persistRedux(yomo,'f5-msg',false); 
