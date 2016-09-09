@@ -60,13 +60,20 @@ const msgs=(state=[],action)=> {
     ...newMsgs(action)
   ]);
   console.log(action);
-  console.log(JSON.stringify(state,null,2));
+  console.log(formatState(state));
   return state;
 }
+const formatState=(state)=>
+  (state.length===0)? '[]' :
+    "[\n"+
+      state
+        .map(msg=>({...msg,txt:msg.txt.substr(0,8)+'...'}))
+        .map(msg=>"  "+JSON.stringify(msg))
+        .join(",\n")+
+    "\n]";
 
 const MsgList=yomoView(({yomo})=>
   <div>
-    {console.log(yomo.state())&&null||null}
     <AddMsg/> Add messages, click on them and hit [reload].
     {yomo.state().map((m)=><ShowMsg key={m.id} {...m}/>)}
   </div>
@@ -91,4 +98,4 @@ const Msg=yomoView(({yomo,interval,end,onClick,children})=>
 );
 
 const yomo=yomoApp({reducer:msgs,View:MsgList});
-persistRedux(yomo,'f5-msg',false); 
+persistRedux(yomo,'f2-log-msgs',false);
