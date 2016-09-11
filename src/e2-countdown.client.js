@@ -25,7 +25,7 @@ const timer=(state=false,action)=>{
 const counterApp=combineReducers({counter,timer});
 
 const clickTimer=(yomo,delay)=>({ onClick: ()=>
-  yomo.dispatch({type:'setTimer',time:delay&&timeNow()+delay})
+  yomo.dispatch({type:'setTimer',time:delay&&timeNow(yomo)+delay})
 });
 const clickCounter=(yomo,change)=>({ onClick: ()=>
   yomo.dispatch({type:'count', change})

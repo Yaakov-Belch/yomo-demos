@@ -34,19 +34,16 @@ const slider=(yomo,rmTime,delay)=>{
 
 let id=1;
 
-// state: {msgs: [{id,txt,rmTime}...] ... }
+// state: [{id,txt,rmTime}...]
 
 const addMsg=(yomo)=>yomo.dispatch({
-  type:'newMsg',id:id++,txt:randomMsg(), rmTime:timeNow()+delay
-});
-const refreshMsg=(yomo,id)=>yomo.dispatch({
-  type:'refreshMsg',id,rmTime:timeNow()+delay
+  type:'newMsg',id:id++,txt:randomMsg(), rmTime:timeNow(yomo)+delay
 });
 
 const msg=(state,action)=>{
   if(state.id===action.id) { switch(action.type) {
     case 'rmMsg': return null;
-    case 'refreshMsg': return {...state,rmTime:action.rmTime};
+    case 'restartTimeout': return {...state,rmTime:action.rmTime};
   }}
   return state;
 };
@@ -54,19 +51,28 @@ const newMsgs=(action)=>{
   const {type,id,txt,rmTime}=action;
   return (type==='newMsg')? [{id,txt,rmTime}]: []
 }
-const msgs=(state=[],action)=>
-  reuse(state,[
+const msgs=(state=[],action)=> {
+  state=reuse(state,[
     ...state.map(m=>msg(m,action)).filter(m=>m),
     ...newMsgs(action)
   ]);
-const msgList=combineReducers({msgs});
+  console.log(action);
+  console.log(formatState(state));
+  return state;
+}
+const formatState=(state)=>
+  (state.length===0)? '[]' :
+    "[\n"+
+      state
+        .map(msg=>({...msg,txt:msg.txt.substr(0,8)+'...'}))
+        .map(msg=>"  "+JSON.stringify(msg))
+        .join(",\n")+
+    "\n]";
 
 const MsgList=yomoView(({yomo})=>
   <div>
     <AddMsg/> Add messages, click on them and hit [reload].
-    {yomo.state().msgs.map((m)=>
-      <ShowMsg {...{...m,key:m.id}}/>)
-    }
+    {yomo.state().map((m)=><ShowMsg key={m.id} {...m}/>)}
   </div>
 );
 
@@ -76,14 +82,19 @@ const AddMsg=yomoView(({yomo})=>
 
 const ShowMsg=yomoView(({yomo,id,txt,rmTime})=>{
   dispatchAfter(yomo,rmTime,{type:'rmMsg',id});
-  return <div
-    key={id}
-    style={slider(yomo,rmTime,delay)}
-    onClick={()=>refreshMsg(yomo,id)}
-  >
-    {txt}
-  </div>
+  const handler=()=>yomo.dispatch(
+    { type:'restartTimeout', id, rmTime:timeNow(yomo)+delay }
+  );
+  return (
+    <Msg onClick={handler} interval={delay} end={rmTime}>{txt}</Msg>
+  );
 });
 
-const yomo=yomoApp({reducer:msgList,View:MsgList});
-persistRedux(yomo,'f5-msg',false); 
+const Msg=yomoView(({yomo,interval,end,onClick,children})=>
+  <div style={slider(yomo,end,interval)} onClick={onClick}>
+    {children}
+  </div>
+);
+
+const yomo=yomoApp({reducer:msgs,View:MsgList});
+persistRedux(yomo,'f2-log-msgs',false);
