@@ -37,7 +37,7 @@ let id=1;
 // state: [{id,txt,rmTime}...]
 
 const addMsg=(yomo)=>yomo.dispatch({
-  type:'newMsg',id:id++,txt:randomMsg(), rmTime:timeNow()+delay
+  type:'newMsg',id:id++,txt:randomMsg(), rmTime:timeNow(yomo)+delay
 });
 
 const msg=(state,action)=>{
@@ -83,7 +83,7 @@ const AddMsg=yomoView(({yomo})=>
 const ShowMsg=yomoView(({yomo,id,txt,rmTime})=>{
   dispatchAfter(yomo,rmTime,{type:'rmMsg',id});
   const handler=()=>yomo.dispatch(
-    { type:'restartTimeout', id, rmTime:timeNow()+delay }
+    { type:'restartTimeout', id, rmTime:timeNow(yomo)+delay }
   );
   return (
     <Msg onClick={handler} interval={delay} end={rmTime}>{txt}</Msg>

@@ -26,7 +26,7 @@ let id=1;
 // state: {msgs: [{id,txt,rmTime}...] ... }
 
 const addMsg=(yomo)=>yomo.dispatch({
-  type:'newMsg',id:id++,txt:randomMsg(), rmTime:timeNow()+delay
+  type:'newMsg',id:id++,txt:randomMsg(), rmTime:timeNow(yomo)+delay
 });
 
 const msg=(state,action)=>{
